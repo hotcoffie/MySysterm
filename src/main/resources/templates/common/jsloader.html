@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+
+</head>
+<body>
+	<div th:fragment="jsLoad">
+		<!-- 一定程度上兼容老IE -->
+		<script th:src="@{js/utils/respond.min.js}" type="text/javascript"></script>
+		<script th:src="@{js/utils/html5shiv.js}" type="text/javascript"></script>
+
+		<!-- jquery-->
+		<script th:src="@{js/utils/jquery.min.js}" type="text/javascript"></script>
+
+		<!-- bootstrap -->
+		<script th:src="@{js/utils/bootstrap.min.js}" type="text/javascript"></script>
+		
+		<!-- title提示插件 -->
+		<script th:src="@{js/utils/opentip-jquery.min.js}" type="text/javascript"></script>
+		
+		<!-- 表单验证 -->
+		<script th:src="@{js/utils/validate/jquery.validate.min.js}" type="text/javascript"></script>
+		<script th:src="@{js/utils/validate/localization/messages_zh.min.js}" type="text/javascript"></script>
+
+		<!-- layer -->
+		<script th:src="@{js/utils/layer/layer.js}" type="text/javascript"></script>
+
+		<!-- 公共方法 -->
+		<script th:src="@{js/custom.js}" type="text/javascript"></script>
+	</div>
+</body>
+</html>

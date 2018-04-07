@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:fragment="header(title)">
+<meta charset="UTF-8" />
+<title th:text="${title}+' - 综合管理系统'">综合管理系统</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- CSS -->
+<!-- Bootstrap Styles -->
+<link th:href="@{css/bootstrap.css}" rel="stylesheet" />
+
+<!-- FontAwesome Styles -->
+<link th:href="@{css/font-awesome.css}" rel="stylesheet" />
+
+<!-- checkbox样式 美化-->
+<link th:href="@{css/checkbox3.min.css}" rel="stylesheet" />
+
+<!-- title提示插件 -->
+<link th:href="@{css/opentip.css}" rel="stylesheet" />
+
+<!-- Custom Styles-->
+<link th:href="@{css/custom-styles.css}" rel="stylesheet" />
+
+</head>
+</html>
