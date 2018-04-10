@@ -14,107 +14,125 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-
 /**
  * The persistent class for the base_user database table.
  * 
  */
 @Entity
-@Table(name="base_user")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-public class User implements Serializable {
+@Table(name = "base_user")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+public class User implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String account;
 
-	private byte accountStatus;
+	@Column(name = "account_status", insertable = false)
+	private int accountStatus;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="add_time")
+	@Column(name = "add_time", insertable = false, updatable = false)
 	private Date addTime;
 
-	@Column(name="dept_id")
+	@Column(name = "dept_id")
 	private Long deptId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="last_time")
-	private Date lastTime;
+	@Column(name = "last_time", insertable = false)
+	private Date lastTime = new Date();
 
 	private String name;
 
 	private String password;
-	
+
 	@Transient
 	private String deptName;
 
-	public User() {
+	public User()
+	{
 	}
 
-	public Long getId() {
+	public Long getId()
+	{
 		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Long id)
+	{
 		this.id = id;
 	}
 
-	public String getAccount() {
+	public String getAccount()
+	{
 		return this.account;
 	}
 
-	public void setAccount(String account) {
+	public void setAccount(String account)
+	{
 		this.account = account;
 	}
 
-	public byte getAccountStatus() {
+	public int getAccountStatus()
+	{
 		return this.accountStatus;
 	}
 
-	public void setAccountStatus(byte accountStatus) {
+	public void setAccountStatus(int accountStatus)
+	{
 		this.accountStatus = accountStatus;
 	}
 
-	public Date getAddTime() {
+	public Date getAddTime()
+	{
 		return this.addTime;
 	}
 
-	public void setAddTime(Date addTime) {
+	public void setAddTime(Date addTime)
+	{
 		this.addTime = addTime;
 	}
 
-	public Long getDeptId() {
+	public Long getDeptId()
+	{
 		return this.deptId;
 	}
 
-	public void setDeptId(Long deptId) {
+	public void setDeptId(Long deptId)
+	{
 		this.deptId = deptId;
 	}
 
-	public Date getLastTime() {
+	public Date getLastTime()
+	{
 		return this.lastTime;
 	}
 
-	public void setLastTime(Date lastTime) {
+	public void setLastTime(Date lastTime)
+	{
 		this.lastTime = lastTime;
 	}
 
-	public String getName() {
+	public String getName()
+	{
 		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 

@@ -135,16 +135,15 @@ $(function() {
 // 作者:谢宇
 // 时间:2018-04-3
 // ------------------------------------------------------------------------------------------
-
 if ($.validator) {
 	$.validator.setDefaults({
 		highlight: function(element, errorClass, validClass) {
 			// 添加[输入错误]边框样式提示
-			$(element).parent().addClass("has-error").removeClass("has-success");
+			$(element).parent().addClass("has-error");
 		},
 		unhighlight: function(element, errorClass, validClass) {
 			// 添加[输入正确]边框样式提示
-			$(element).parent().addClass("has-success").removeClass("has-error");
+			$(element).parent().removeClass("has-error");
 
 			// 清除之前的OpenTip
 			var tips = $(element).data("opentips");
@@ -162,27 +161,16 @@ if ($.validator) {
 			if (tips && tips.length > 0) {
 				tips[0].activate();
 				tips[0].setContent(msg);
-			} else
+			} else {
 				$(element).opentip(msg, {
 					target: false,
 					removeElementsOnHide: true
 				});
+			}
 		}
 	});
 }
 
-/**
-* 封装表单验证方法
-*/
-$.fn.checkForm = function() {
-	console.log(this)
-	$(this).validate();
-	if (!$(this).valid()) {
-		warn('表单信息不完整,请根据提示调整内容');
-		return true;
-	}
-	return false;
-}
 // ------------------------------------------------------------------------------------------
 // 说明:常用方法
 // 作者:谢宇
@@ -190,7 +178,7 @@ $.fn.checkForm = function() {
 // ------------------------------------------------------------------------------------------
 
 /**
- * 回车键执行指定方法 [适用于工具栏中的查询条件回车键直接查询功能]
+* 回车键执行指定方法 [适用于工具栏中的查询条件回车键直接查询功能]
 *
 * @param event     回车键事件
 * @param searchFn	search function

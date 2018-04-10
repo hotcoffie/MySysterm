@@ -46,11 +46,20 @@ function clickTagBtn() {
  * @returns
  */
 function clickLogin() {
-	if ($("#login").checkForm()) return;
+	// 1.获取表单对象
+	var $form = $('#login');
 
+	// 2.表单验证
+	$form.validate();
+	if (!$form.valid()) {
+		warn('表单信息不完整，请根据提示调整内容');
+		return;
+	}
+
+	// 3.发送ajax请求
 	$.ajax({
 		url: '/login',
-		data: $('#login').serialize(),
+		data: $form.serialize(),
 		success: function(rs) {
 			if (rs.success) {
 				$('#toIndex')[0].click();
@@ -66,5 +75,28 @@ function clickLogin() {
  * @returns
  */
 function clickRegist() {
+	// 1.获取表单对象
+	var $form = $('#regist');
 
+	// 2.表单验证
+	$form.validate();
+	if (!$form.valid()) {
+		warn('表单信息不完整，请根据提示调整内容');
+		return;
+	}
+
+	// 3.发送ajax请求
+	$.ajax({
+		url: '/regist',
+		data: $form.serialize(),
+		success: function(rs) {
+			if (rs.success) {
+				info('注册成功!', function() {
+					$('#toIndex')[0].click();
+				});
+			} else {
+				error(rs.msg);
+			}
+		}
+	});
 }

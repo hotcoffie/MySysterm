@@ -30,13 +30,13 @@
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">账号:</label>
 								<div class="col-sm-8">
-									<input type="text" name="account" class="form-control required" placeholder="请输入您的账号" onkeyup="enterKey(event,clickLogin)" />
+									<input type="text" name="account" placeholder="请输入您的账号  5-10位 英文字母/数字" class="form-control required" rangelength="[5,10]" onkeyup="enterKey(event,clickLogin)" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">密码:</label>
 								<div class="col-sm-8">
-									<input type="password" name="password" class="form-control required" placeholder="请输入您的密码" onkeyup="enterKey(event,clickLogin)" />
+									<input type="password" name="password" placeholder="请输入您的密码  6-12位 英文字母/数字" class="form-control required" rangelength="[6,12]" onkeyup="enterKey(event,clickLogin)" autocomplete="new-password" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -50,38 +50,38 @@
 							<hr />
 							<button type="button" class="btn btn-default center-block" onclick="clickLogin();">登录</button>
 						</form>
-						<form id="regist" class="form-horizontal hide" autocomplete="off">
+						<form id="regist" class="form-horizontal hide">
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">账号:</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="account" placeholder="请输入 5-10位 英文字母/数字 组成的账号" />
+									<input type="text" name="account" placeholder="请输入 5-10位 英文字母/数字 组成的账号" class="form-control required" rangelength="[5,10]" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">密码:</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control" name="password1" placeholder="请输入 6-12位 英文字母/数字 组成的密码" />
+									<input type="password" name="password" id="password1" placeholder="请输入 6-12位 英文字母/数字 组成的密码" class="form-control required" rangelength="[6,12]" autocomplete="new-password" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">确认密码:</label>
 								<div class="col-sm-8">
-									<input type="password" class="form-control" name="password2" placeholder="请再次输入密码" />
+									<input type="password" placeholder="请再次输入密码" class="form-control required" equalTo="#password1" rangelength="[6,12]" />
 								</div>
 							</div>
 							<hr />
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">姓名:</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="name" placeholder="请输入您的姓名" />
+									<input type="text" name="name" placeholder="请输入您的姓名  2-10个字符" class="form-control required" rangelength="[2,10]" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="focusedinput" class="col-sm-3 login-font">部门:</label>
 								<div class="col-sm-8">
-									<select name="deptId" class="form-control">
+									<select name="deptId" class="form-control required">
 										<option>请选择您的部门</option>
-										<option>第一部</option>
+										<option value="1">第一部</option>
 									</select>
 								</div>
 							</div>

@@ -36,6 +36,8 @@
 
 package com.xieyu.ms.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.xieyu.ms.domain.User;
@@ -49,11 +51,18 @@ import com.xieyu.ms.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long>
 {
+	/**
+	 * 查询所有有效用户
+	 * @param accountStatus
+	 * @return
+	 */
+	List<User> findAllByAccountStatus(int accountStatus);
 
 	/**
+	 * 用账户名查找用户
 	 * @param account
 	 * @return
 	*/
-	User findByAccount(String account);
+	User findByAccountAndAccountStatus(String account, int accountStatus);
 
 }

@@ -46,6 +46,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xieyu.ms.domain.User;
+import com.xieyu.ms.enums.AccountStatusEnum;
 import com.xieyu.ms.exceptions.MyException;
 import com.xieyu.ms.repository.UserRepository;
 import com.xieyu.ms.service.UserService;
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService
 	public List<User> search()
 	{
 		lg.debug("查询用户列表");
-		return userRepository.findAll();
+		return userRepository.findAllByAccountStatus(AccountStatusEnum.USED.getValue());
 	}
 
 	/**
@@ -93,12 +94,59 @@ public class UserServiceImpl implements UserService
 
 		// 2.密码验证
 		password = CodeUtils.md5(password);
-		User sysUser = userRepository.findByAccount(account);
+		User sysUser = userRepository.findByAccountAndAccountStatus(account, AccountStatusEnum.USED.getValue());
 		if (!sysUser.getPassword().equals(password))
 		{
 			throw new MyException("用户信息有误");
 		}
 		lg.debug("登陆请求,账号密码验证通过");
+	}
+
+	/**
+	 * 新建用户
+	 * @param user
+	 * @return
+	*/
+	public Long createUser(User user) throws Exception
+	{
+		// 1.有效性验证
+		// 1.1输入信息有效性
+		String errorMsg = "您提交的注册信息有误，请检查后重新提交";
+		if (user == null || StringUtils.isAnyBlank(user.getAccount(), user.getPassword(), user.getName()))
+		{
+			throw new MyException(errorMsg);
+		}
+		String account = user.getAccount();
+		String password = user.getPassword();
+
+		int len = account.length();
+		if (len < 5 || len > 10)
+		{
+			throw new MyException(errorMsg);
+		}
+		len = password.length();
+		if (len < 6 || len > 12)
+		{
+			throw new MyException(errorMsg);
+		}
+		len = user.getName().length();
+		if (len < 2 || len > 10)
+		{
+			throw new MyException(errorMsg);
+		}
+
+		// 1.2唯一性验证
+		User back = userRepository.findByAccountAndAccountStatus(account, AccountStatusEnum.USED.getValue());
+		if (back != null)
+		{
+			throw new MyException("您申请的账号已存在，请输入新的账号");
+		}
+
+		// 2.持久化
+		user.setPassword(CodeUtils.md5(password));
+		back = userRepository.save(user);
+
+		return back.getId();
 	}
 
 }

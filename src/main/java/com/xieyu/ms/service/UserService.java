@@ -49,7 +49,25 @@ import com.xieyu.ms.domain.User;
 
 public interface UserService
 {
+	/**
+	 * 获取用户列表
+	 * @return
+	 * @throws Exception
+	 */
 	public List<User> search() throws Exception;
 
+	/**
+	 * 检查用户账号密码
+	 * @param user
+	 * @throws Exception
+	 */
 	void checkUser(User user) throws Exception;
+
+	/**
+	 * 新建用户
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	Long createUser(User user) throws Exception;
 }

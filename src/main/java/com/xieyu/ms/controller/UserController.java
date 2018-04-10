@@ -74,12 +74,19 @@ public class UserController extends BaseController
 		return new ModelAndView("login");
 	}
 
+	/**
+	 * 登录请求
+	 * @param user 登录用户信息
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/login")
 	public Object login(User user, HttpSession session) throws Exception
 	{
 		lg.debug("登录请求");
 		userService.checkUser(user);
-		session.setAttribute("user", user);
+		session.setAttribute("userId", user.getId());
 		return success();
 	}
 
@@ -95,4 +102,12 @@ public class UserController extends BaseController
 		return new ModelAndView("login");
 	}
 
+	@RequestMapping("/regist")
+	public Object regist(User user, HttpSession session) throws Exception
+	{
+		lg.debug("注册请求");
+		Long userId = userService.createUser(user);
+		session.setAttribute("userId", userId);
+		return success();
+	}
 }
