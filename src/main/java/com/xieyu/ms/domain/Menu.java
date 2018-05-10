@@ -31,7 +31,7 @@ public class Menu implements Serializable
 	private int id;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "add_time")
+	@Column(name = "add_time", insertable = false, updatable = false)
 	private Date addTime;
 
 	@Column(name = "add_user_id")

@@ -36,33 +36,18 @@
 
 package com.xieyu.ms.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.xieyu.ms.domain.User;
+import com.xieyu.ms.domain.Logs;
 
 /**
  * 类功能描述 
  *
  * @author	谢宇
- * @version	2018年4月2日 下午3:45:07
+ * @version	2018年4月10日 下午9:27:39
  */
 
-public interface UserRepository extends JpaRepository<User, Long>
+public interface LogRepository extends JpaRepository<Logs, Long>
 {
-	/**
-	 * 查询所有有效用户
-	 * @param accountStatus
-	 * @return
-	 */
-	List<User> findAllByAccountStatus(int accountStatus) throws Exception;
-
-	/**
-	 * 用账户名查找用户
-	 * @param account
-	 * @return
-	*/
-	User findByAccountAndAccountStatus(String account, int accountStatus) throws Exception;
 
 }

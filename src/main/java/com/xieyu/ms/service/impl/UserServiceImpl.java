@@ -39,10 +39,11 @@ package com.xieyu.ms.service.impl;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xieyu.ms.domain.User;
@@ -63,10 +64,10 @@ public class UserServiceImpl implements UserService
 {
 	private Logger lg = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired
+	@Resource(name = "userRepository")
 	private UserRepository userRepository;
 
-	public List<User> search()
+	public List<User> search() throws Exception
 	{
 		lg.debug("查询用户列表");
 		return userRepository.findAllByAccountStatus(AccountStatusEnum.USED.getValue());
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService
 	 * @param user
 	 * @throws NoSuchAlgorithmException 
 	*/
-	public void checkUser(User user) throws Exception
+	public User checkUser(User user) throws Exception
 	{
 		// 1.有效性验证
 		if (user == null)
@@ -95,11 +96,12 @@ public class UserServiceImpl implements UserService
 		// 2.密码验证
 		password = CodeUtils.md5(password);
 		User sysUser = userRepository.findByAccountAndAccountStatus(account, AccountStatusEnum.USED.getValue());
-		if (!sysUser.getPassword().equals(password))
+		if (sysUser == null || !sysUser.getPassword().equals(password))
 		{
 			throw new MyException("用户信息有误");
 		}
 		lg.debug("登陆请求,账号密码验证通过");
+		return sysUser;
 	}
 
 	/**
@@ -107,7 +109,7 @@ public class UserServiceImpl implements UserService
 	 * @param user
 	 * @return
 	*/
-	public Long createUser(User user) throws Exception
+	public User createUser(User user) throws Exception
 	{
 		// 1.有效性验证
 		// 1.1输入信息有效性
@@ -144,9 +146,9 @@ public class UserServiceImpl implements UserService
 
 		// 2.持久化
 		user.setPassword(CodeUtils.md5(password));
-		back = userRepository.save(user);
+		userRepository.save(user);
 
-		return back.getId();
+		return user;
 	}
 
 }

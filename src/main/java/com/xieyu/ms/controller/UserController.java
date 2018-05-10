@@ -47,6 +47,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xieyu.ms.domain.User;
+import com.xieyu.ms.enums.LogTypeEnum;
 import com.xieyu.ms.service.impl.UserServiceImpl;
 
 /**
@@ -85,8 +86,9 @@ public class UserController extends BaseController
 	public Object login(User user, HttpSession session) throws Exception
 	{
 		lg.debug("登录请求");
-		userService.checkUser(user);
-		session.setAttribute("userId", user.getId());
+		User back = userService.checkUser(user);
+		systermLog("登录请求", LogTypeEnum.R, back);
+		session.setAttribute("user", back);
 		return success();
 	}
 
@@ -102,12 +104,19 @@ public class UserController extends BaseController
 		return new ModelAndView("login");
 	}
 
+	/**
+	 * 注册用户
+	 * @param user
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/regist")
 	public Object regist(User user, HttpSession session) throws Exception
 	{
 		lg.debug("注册请求");
-		Long userId = userService.createUser(user);
-		session.setAttribute("userId", userId);
+		User back = userService.createUser(user);
+		session.setAttribute("user", back);
 		return success();
 	}
 }

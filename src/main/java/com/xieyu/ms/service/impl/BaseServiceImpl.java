@@ -34,35 +34,18 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 
-package com.xieyu.ms.repository;
+package com.xieyu.ms.service.impl;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.xieyu.ms.domain.User;
+import com.xieyu.ms.service.BaseService;
 
 /**
  * 类功能描述 
  *
  * @author	谢宇
- * @version	2018年4月2日 下午3:45:07
+ * @version	2018年4月13日 下午7:04:16
  */
 
-public interface UserRepository extends JpaRepository<User, Long>
+public class BaseServiceImpl implements BaseService
 {
-	/**
-	 * 查询所有有效用户
-	 * @param accountStatus
-	 * @return
-	 */
-	List<User> findAllByAccountStatus(int accountStatus) throws Exception;
-
-	/**
-	 * 用账户名查找用户
-	 * @param account
-	 * @return
-	*/
-	User findByAccountAndAccountStatus(String account, int accountStatus) throws Exception;
 
 }

@@ -34,35 +34,23 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 
-package com.xieyu.ms.repository;
+package com.xieyu.ms.service;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.xieyu.ms.domain.User;
+import com.xieyu.ms.domain.Logs;
 
 /**
- * 类功能描述 
+ * 类功能描述 操作日志服务
  *
  * @author	谢宇
- * @version	2018年4月2日 下午3:45:07
+ * @version	2018年4月13日 下午6:29:13
  */
 
-public interface UserRepository extends JpaRepository<User, Long>
+public interface LogService
 {
 	/**
-	 * 查询所有有效用户
-	 * @param accountStatus
+	 * 写日志
+	 * @param log
 	 * @return
 	 */
-	List<User> findAllByAccountStatus(int accountStatus) throws Exception;
-
-	/**
-	 * 用账户名查找用户
-	 * @param account
-	 * @return
-	*/
-	User findByAccountAndAccountStatus(String account, int accountStatus) throws Exception;
-
+	Logs createLog(Logs log) throws Exception;
 }

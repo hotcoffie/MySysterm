@@ -34,35 +34,32 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 
-package com.xieyu.ms.repository;
+package com.xieyu.ms.service.impl;
 
-import java.util.List;
+import javax.annotation.Resource;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
-import com.xieyu.ms.domain.User;
+import com.xieyu.ms.domain.Logs;
+import com.xieyu.ms.repository.LogRepository;
+import com.xieyu.ms.service.LogService;
 
 /**
- * 类功能描述 
+ * 类功能描述 用户操作日志拦截器实现
  *
  * @author	谢宇
- * @version	2018年4月2日 下午3:45:07
+ * @version	2018年4月13日 下午6:30:02
  */
-
-public interface UserRepository extends JpaRepository<User, Long>
+@Service
+public class LogServiceImpl implements LogService
 {
-	/**
-	 * 查询所有有效用户
-	 * @param accountStatus
-	 * @return
-	 */
-	List<User> findAllByAccountStatus(int accountStatus) throws Exception;
+	@Resource(name = "logRepository")
+	private LogRepository logRepository;
 
-	/**
-	 * 用账户名查找用户
-	 * @param account
-	 * @return
-	*/
-	User findByAccountAndAccountStatus(String account, int accountStatus) throws Exception;
+	@Override
+	public Logs createLog(Logs log)
+	{
+		return logRepository.save(log);
+	}
 
 }

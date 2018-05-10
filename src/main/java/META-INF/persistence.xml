@@ -3,5 +3,6 @@
 	<persistence-unit name="MySysterm">
 		<class>com.xieyu.ms.domain.User</class>
 		<class>com.xieyu.ms.domain.Menu</class>
+		<class>com.xieyu.ms.domain.Logs</class>
 	</persistence-unit>
 </persistence>

@@ -36,9 +36,17 @@
 
 package com.xieyu.ms;
 
+import java.util.Date;
+import java.util.List;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.xieyu.ms.domain.Logs;
+import com.xieyu.ms.repository.LogRepository;
 
 /**
  * 类功能描述 
@@ -51,13 +59,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class UserRepositoryTests
 {
 
-//	@Autowired
-//	private UserMapper userMapper;
-//
-//	@Test
-//	public void test() throws Exception
-//	{
-//		List<User> users = userMapper.findAll();
-//		System.out.println(users.toString());
-//	}
+	@Autowired
+	private LogRepository logRepository;
+
+	@Test
+	public void test() throws Exception
+	{
+		Logs log = new Logs();
+		log.setLogType(1);
+		log.setDesc("测试");
+		log.setOperatorId(1L);
+		log.setAddTime(new Date());
+		logRepository.save(log);
+		List<Logs> list = logRepository.findAll();
+		System.out.println(list);
+//		logRepository.save(log);
+//		list = logRepository.findAll();
+//		System.out.println(list);
+	}
 }

@@ -1,5 +1,8 @@
 package com.xieyu.ms.controller;
 
+import java.util.Date;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -9,8 +12,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xieyu.ms.domain.Logs;
 import com.xieyu.ms.domain.User;
+import com.xieyu.ms.enums.LogTypeEnum;
 import com.xieyu.ms.exceptions.MyException;
+import com.xieyu.ms.service.LogService;
 import com.xieyu.ms.utils.Result;
 
 /**
@@ -22,7 +28,11 @@ import com.xieyu.ms.utils.Result;
 @ControllerAdvice
 public class BaseController
 {
+
 	private Logger lg = LoggerFactory.getLogger(this.getClass());
+
+	@Resource
+	private LogService logService;
 
 	/**
 	 * 获取Session上的用户数据
@@ -116,4 +126,39 @@ public class BaseController
 
 	}
 
+	/**
+	 * 记录本次请求的操作日志
+	 * @param desc 日志描述
+	 * @param type 日志类型
+	 * @param req 请求头
+	 * @throws Exception 
+	 */
+	public void systermLog(String desc, LogTypeEnum type, HttpServletRequest req) throws Exception
+	{
+		Logs log = new Logs();
+		log.setDesc(desc);
+		log.setAddTime(new Date());
+		log.setLogType(type.getValue());
+		User user = getSessionUser(req);
+		log.setOperatorId(user.getId());
+
+		logService.createLog(log);
+	}
+
+	/**
+	 * 记录本次请求的操作日志
+	 * @param desc 日志描述
+	 * @param type 日志类型
+	 * @param userId 操作人ID
+	 * @throws Exception 
+	 */
+	public void systermLog(String desc, LogTypeEnum type, User user) throws Exception
+	{
+		Logs log = new Logs();
+		log.setDesc(desc);
+		log.setLogType(type.getValue());
+		log.setOperatorId(user.getId());
+
+		logService.createLog(log);
+	}
 }

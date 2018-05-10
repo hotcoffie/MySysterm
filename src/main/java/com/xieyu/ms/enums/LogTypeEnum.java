@@ -34,35 +34,53 @@
  *                   不见满街漂亮妹，哪个归得程序员？
  */
 
-package com.xieyu.ms.repository;
-
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.xieyu.ms.domain.User;
+package com.xieyu.ms.enums;
 
 /**
- * 类功能描述 
+ * 类功能描述 日志类型
+ * 增删改查无
  *
  * @author	谢宇
- * @version	2018年4月2日 下午3:45:07
+ * @version	2018年4月13日 下午6:52:16
  */
 
-public interface UserRepository extends JpaRepository<User, Long>
+public enum LogTypeEnum
 {
+	N(0, "无"), C(1, "新建"), R(1, "查询"), U(1, "修改"), D(1, "删除");
+
+	private int value;
+	private String name;
+
 	/**
-	 * 查询所有有效用户
-	 * @param accountStatus
-	 * @return
+	 * 创建一个新的实例 LogTypeEnum.
+	 *
 	 */
-	List<User> findAllByAccountStatus(int accountStatus) throws Exception;
 
-	/**
-	 * 用账户名查找用户
-	 * @param account
-	 * @return
-	*/
-	User findByAccountAndAccountStatus(String account, int accountStatus) throws Exception;
+	private LogTypeEnum(int value, String name)
+	{
+		this.value = value;
+		this.name = name();
+	}
 
+	public int getValue()
+	{
+		return value;
+	}
+
+	public String getName()
+	{
+		return name;
+	}
+
+	public LogTypeEnum get(int value)
+	{
+		for (LogTypeEnum e : LogTypeEnum.values())
+		{
+			if (e.getValue() == value)
+			{
+				return e;
+			}
+		}
+		return null;
+	}
 }

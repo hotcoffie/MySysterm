@@ -72,7 +72,7 @@ public class HomeController extends BaseController
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/index")
+	@RequestMapping("/")
 	public ModelAndView toIndex() throws Exception
 	{
 		return new ModelAndView("index");

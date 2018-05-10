@@ -61,7 +61,7 @@ public interface UserService
 	 * @param user
 	 * @throws Exception
 	 */
-	void checkUser(User user) throws Exception;
+	User checkUser(User user) throws Exception;
 
 	/**
 	 * 新建用户
@@ -69,5 +69,5 @@ public interface UserService
 	 * @return
 	 * @throws Exception
 	 */
-	Long createUser(User user) throws Exception;
+	User createUser(User user) throws Exception;
 }
